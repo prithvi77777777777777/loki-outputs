@@ -1,59 +1,49 @@
-def add(x, y):
-    """Add two numbers."""
-    return x + y
+class Calculator:
+    def add(self, a, b):
+        return a + b
 
-def subtract(x, y):
-    """Subtract two numbers."""
-    return x - y
+    def subtract(self, a, b):
+        return a - b
 
-def multiply(x, y):
-    """Multiply two numbers."""
-    return x * y
+    def multiply(self, a, b):
+        return a * b
 
-def divide(x, y):
-    """Divide two numbers."""
-    if y == 0:
-        return "Error! Division by zero."
-    return x / y
+    def divide(self, a, b):
+        if b == 0:
+            raise ValueError("Cannot divide by zero")
+        return a / b
 
-def calculator():
-    """Simple calculator function to perform basic arithmetic operations."""
-    print("Select operation:")
-    print("1. Add")
-    print("2. Subtract")
-    print("3. Multiply")
-    print("4. Divide")
-
+def main():
+    calc = Calculator()
     while True:
-        choice = input("Enter choice(1/2/3/4): ")
+        print("\nOptions:")
+        print("Enter 'add' to add two numbers")
+        print("Enter 'subtract' to subtract two numbers")
+        print("Enter 'multiply' to multiply two numbers")
+        print("Enter 'divide' to divide two numbers")
+        print("Enter 'exit' to end the program")
+        user_input = input(": ")
 
-        if choice in ['1', '2', '3', '4']:
-            try:
-                num1 = float(input("Enter first number: "))
-                num2 = float(input("Enter second number: "))
-            except ValueError:
-                print("Invalid input. Please enter numeric values.")
-                continue
-
-            if choice == '1':
-                print(f"{num1} + {num2} = {add(num1, num2)}")
-
-            elif choice == '2':
-                print(f"{num1} - {num2} = {subtract(num1, num2)}")
-
-            elif choice == '3':
-                print(f"{num1} * {num2} = {multiply(num1, num2)}")
-
-            elif choice == '4':
-                result = divide(num1, num2)
-                print(f"{num1} / {num2} = {result}")
-
-        else:
-            print("Invalid input. Please enter a valid choice.")
-
-        next_calculation = input("Do you want to perform another calculation? (yes/no): ")
-        if next_calculation.lower() != 'yes':
+        if user_input == "exit":
+            print("Exiting the program...")
             break
+        elif user_input in ('add', 'subtract', 'multiply', 'divide'):
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
+
+            if user_input == 'add':
+                print("The result is", calc.add(num1, num2))
+            elif user_input == 'subtract':
+                print("The result is", calc.subtract(num1, num2))
+            elif user_input == 'multiply':
+                print("The result is", calc.multiply(num1, num2))
+            elif user_input == 'divide':
+                try:
+                    print("The result is", calc.divide(num1, num2))
+                except ValueError as e:
+                    print(e)
+        else:
+            print("Unknown input")
 
 if __name__ == "__main__":
-    calculator()
+    main()
